@@ -7,8 +7,8 @@ const Navbar = () => {
         <>
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/recipes">All Recipes</NavLink></li>
-            <li><NavLink to="/myRecipes">My Recipes</NavLink></li>
             <li><NavLink to="/recipeAdd">Add Recipes</NavLink></li>
+            <li><NavLink to="/myRecipes">My Recipes</NavLink></li>
 
         </>
     )
@@ -25,7 +25,7 @@ const Navbar = () => {
                         {navlinks}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a onClick={() => navigate("/")} className="font-semibold text-xl cursor-pointer">Delicate Cuisine</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
