@@ -3,8 +3,10 @@ import { AuthContext } from '../contexts/AuthContext';
 import { FaGoogle } from 'react-icons/fa';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const Register = () => {
+    const navigate = useNavigate();
     const { createUser, userInfo, googleLogin } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -40,12 +42,14 @@ const Register = () => {
             .then(() => {
                 userInfo(name, photo)
                     .then(() => {
-                        form.reset();
                         toast.success("Account created successfully");
+                        toast.success("Profile updated successfully");
+                        navigate("/login");
                     })
                     .catch(() => {
                         toast.error("Profile update failed");
                     });
+
             })
             .catch(() => {
                 toast.error("Account creation failed");
@@ -56,6 +60,7 @@ const Register = () => {
         googleLogin()
             .then(() => {
                 toast.success("Google registration successful");
+                navigate("/");
             })
             .catch(() => {
                 toast.error("Google registration failed");

@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import RecipeAdd from "../pages/RecipeAdd";
 import MyRecipes from "../pages/MyRecipes";
+import PrivateRoute from "./PrivateRoute";
 
 export const routes = createBrowserRouter([
     {
@@ -30,11 +31,11 @@ export const routes = createBrowserRouter([
             },
             {
                 path: "/recipeAdd",
-                Component: RecipeAdd,
+                element: <PrivateRoute><RecipeAdd /></PrivateRoute>,
             },
             {
                 path: "/myRecipes",
-                Component: MyRecipes,
+                element: <PrivateRoute><MyRecipes /></PrivateRoute>,
             },
         ]
     }
