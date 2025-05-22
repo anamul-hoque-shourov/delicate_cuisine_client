@@ -68,7 +68,7 @@ const Register = () => {
     };
 
     return (
-        <div className="p-5 card bg-base-100 w-full max-w-sm shrink-0 border border-gray-200 shadow mx-auto">
+        <div className="p-5 card bg-base-100 w-full max-w-sm shrink-0 border border-gray-200 shadow mx-auto text-orange-500">
             <h1 className="text-3xl font-bold text-center">Register Account</h1>
 
             <form onSubmit={registerWithEmailAndPassword} className="fieldset mt-4 space-y-4">
@@ -115,14 +115,14 @@ const Register = () => {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-2 top-2.5 cursor-pointer z-10"
+                            className="absolute right-2 top-2.5 cursor-pointer z-10 text-orange-500"
                         >
                             {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
                         </button>
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-neutral text-base text-white w-full">
+                <button type="submit" className="btn btn-neutral text-base bg-orange-500 hover:bg-orange-600 text-white w-full border-none shadow-none">
                     Register
                 </button>
 
@@ -135,7 +135,7 @@ const Register = () => {
                 <button
                     type="button"
                     onClick={registerWithGoogleId}
-                    className="btn btn-neutral text-base text-white w-full flex items-center justify-center gap-2"
+                    className="btn btn-neutral text-base bg-orange-500 hover:bg-orange-600 text-white w-full flex items-center justify-center gap-2 border-none shadow-none"
                 >
                     <FaGoogle size={20} />
                     Register with Google

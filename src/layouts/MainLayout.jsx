@@ -9,7 +9,7 @@ const MainLayout = () => {
         <div>
             <ToastContainer />
             <Navbar />
-            <div className='min-h-[calc(100vh-300px)] py-5'>
+            <div className='min-h-[calc(100vh-300px)]'>
                 <Outlet />
             </div>
             <Footer />

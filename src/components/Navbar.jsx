@@ -35,7 +35,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm text-orange-500">
             <div className="navbar-start">
 
                 {/* Small screen dropdown menu */}

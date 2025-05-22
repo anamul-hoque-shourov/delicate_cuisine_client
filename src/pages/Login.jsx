@@ -72,14 +72,14 @@ const Login = () => {
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-2 top-2.5 cursor-pointer z-10"
+                            className="absolute right-2 top-2.5 cursor-pointer z-10 text-orange-500"
                         >
                             {showPassword ? <IoMdEyeOff size={20} /> : <IoMdEye size={20} />}
                         </button>
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-neutral text-base text-white w-full">
+                <button type="submit" className="btn btn-neutral text-base bg-orange-500 hover:bg-orange-600 text-white w-full border-none shadow-none">
                     Login
                 </button>
 
@@ -92,7 +92,7 @@ const Login = () => {
                 <button
                     type="button"
                     onClick={loginWithGoogleId}
-                    className="btn btn-neutral text-base text-white w-full flex items-center justify-center gap-2"
+                    className="btn btn-neutral text-base bg-orange-500 hover:bg-orange-600 text-white w-full flex items-center justify-center gap-2 border-none shadow-none"
                 >
                     <FaGoogle size={20} />
                     Login with Google
