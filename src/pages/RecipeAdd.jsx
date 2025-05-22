@@ -19,6 +19,7 @@ const RecipeAdd = () => {
         newRecipe.ownerName = user.displayName;
         newRecipe.ownerEmail = user.email;
         newRecipe.ownerPhoto = user.photoURL;
+        newRecipe.date= getFormattedBDTime()
 
         console.log(newRecipe);
 
@@ -37,6 +38,21 @@ const RecipeAdd = () => {
                 };
             })
     };
+
+    const getFormattedBDTime = () => {
+        const now = new Date();
+        const bdTime = now.toLocaleString("en-GB", {
+            timeZone: "Asia/Dhaka",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        });
+        return bdTime;
+    };
+
 
     return (
         <div className="min-h-screen bg-orange-50 flex justify-center items-center p-4">
@@ -102,7 +118,7 @@ const RecipeAdd = () => {
 
                     <label className='py-2 font-medium underline'>Select Categories</label>
                     <div className="flex flex-wrap gap-2">
-                        {["Appetizer", "Breakfast", "Dessert", "Dinner", "Lunch", "Snacks", "Salad", "Other"].map((category) => (
+                        {["Appetizer", "Breakfast", "Dessert", "Dinner", "Lunch", "Snacks", "Salad", "Vegan", "Other"].map((category) => (
                             <label key={category} className="flex items-center gap-3">
                                 <input
                                     name="categories"
