@@ -4,12 +4,16 @@ import { AuthContext } from '../contexts/AuthContext';
 const MyRecipes = () => {
   const { user } = useContext(AuthContext);
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:3000/recipes/user?email=${user.email}`)
         .then(res => res.json())
-        .then(data => setRecipes(data));
+        .then((data) => {
+          setRecipes(data);
+          setLoading(false);
+        })
     }
   }, [user]);
 
@@ -29,6 +33,10 @@ const MyRecipes = () => {
       }
     }
   };
+
+  if (loading) {
+    return <div className="text-center mt-10"><span className="loading loading-bars loading-xl"></span></div>;
+  }
 
   return (
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

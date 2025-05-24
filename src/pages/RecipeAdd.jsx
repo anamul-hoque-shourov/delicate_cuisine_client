@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 
 const RecipeAdd = () => {
     const { user } = useContext(AuthContext);
-    console.log(user.email);
 
     const handleAddRecipe = (e) => {
         e.preventDefault();
@@ -16,6 +15,7 @@ const RecipeAdd = () => {
         newRecipe.categories = formData.getAll('categories');
         newRecipe.ingredients = formData.get("ingredients").split(",").map(item => item.trim()).filter(item => item);
 
+        newRecipe.likes = parseInt(newRecipe.likes)
         newRecipe.ownerName = user.displayName;
         newRecipe.ownerEmail = user.email;
         newRecipe.ownerPhoto = user.photoURL;

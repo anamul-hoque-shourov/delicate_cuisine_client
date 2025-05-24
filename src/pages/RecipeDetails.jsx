@@ -1,10 +1,51 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 const RecipeDetails = () => {
-    const { user } = useContext(AuthContext)
-    const { image, title, ingredients, instructions, prepTime, categories, cuisineType, ownerEmail, ownerName, ownerPhoto, likes, date } = useLoaderData();
+    const { id } = useParams();
+    const { user } = useContext(AuthContext);
+
+    const [recipe, setRecipe] = useState(null);
+    const [likeCount, setLikeCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/recipes/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setRecipe(data);
+                setLikeCount(parseInt(data.likes));
+                setLoading(false);
+            });
+    }, [id]);
+
+    const handleLike = () => {
+        const newLikes = likeCount + 1;
+
+        fetch(`http://localhost:3000/recipes/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ likes: newLikes })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data) {
+                    toast.success("You have liked the recipe");
+                    setLikeCount(newLikes);
+                }
+            });
+    };
+
+
+    if (loading) {
+        return <div className="text-center mt-10"><span className="loading loading-bars loading-xl"></span></div>;
+    }
+
+    const { image, title, ingredients, instructions, prepTime, categories, cuisineType, ownerEmail, ownerName, ownerPhoto, date } = recipe;
 
     return (
         <div className="p-4">
@@ -12,7 +53,7 @@ const RecipeDetails = () => {
                 <img src={image} alt={title} className="w-full h-64 object-cover rounded-lg mb-5" />
 
                 <div className="flex justify-between items-start gap-2 mb-2">
-                    <p>{likes} people interested in this recipe</p>
+                    <p>{likeCount} people interested in this recipe</p>
                     <div className="flex items-center gap-2">
                         <div>
                             <h2 className="font-semibold">Recipe by: {ownerName}</h2>
@@ -51,10 +92,10 @@ const RecipeDetails = () => {
                 </div>
 
                 {
-                    user.email !== ownerEmail &&
+                    user?.email !== ownerEmail &&
                     <div className="mt-6 flex items-center gap-4">
                         <button
-                            // onClick={handleLike}
+                            onClick={handleLike}
                             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md"
                         >
                             Like
@@ -63,7 +104,6 @@ const RecipeDetails = () => {
                 }
             </div>
         </div>
-
     );
 };
 

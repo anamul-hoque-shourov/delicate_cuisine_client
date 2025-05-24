@@ -1,8 +1,22 @@
-import React from 'react';
-import { Link, useLoaderData } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const Recipes = () => {
-    const recipes = useLoaderData();
+    const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("http://localhost:3000/recipes")
+            .then((res) => res.json())
+            .then((data) => {
+                setRecipes(data);
+                setLoading(false);
+            })
+    }, []);
+
+    if (loading) {
+        return <div className="text-center mt-10"><span className="loading loading-bars loading-xl"></span></div>;
+    }
 
     return (
         <div className="p-6">
