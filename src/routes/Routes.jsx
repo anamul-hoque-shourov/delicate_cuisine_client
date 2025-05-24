@@ -18,8 +18,6 @@ export const routes = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
-                loader: () => fetch("http://localhost:3000/recipes"),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             },
             {
                 path: "/recipes",
@@ -42,8 +40,6 @@ export const routes = createBrowserRouter([
             {
                 path: "/myRecipes",
                 element: <PrivateRoute><MyRecipes /></PrivateRoute>,
-                loader: () => fetch("http://localhost:3000/recipes"),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             },
             {
                 path: "/recipes/:id",

@@ -1,12 +1,34 @@
-import React, { useContext, useState } from 'react';
-import { useLoaderData } from 'react-router';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 
 const MyRecipes = () => {
-  const allRecipes = useLoaderData();
   const { user } = useContext(AuthContext);
-  const myRecipes = allRecipes.filter(recipe => recipe.ownerEmail === user.email)
-  const [recipes, setRecipes] = useState(myRecipes);
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`http://localhost:3000/recipes/user?email=${user.email}`)
+        .then(res => res.json())
+        .then(data => setRecipes(data));
+    }
+  }, [user]);
+
+  const onUpdate = (id) => {
+    // Update logic here
+    console.log("Update recipe", id);
+  };
+
+  const onDelete = async (id) => {
+    const confirm = window.confirm("Are you sure you want to delete this recipe?");
+    if (confirm) {
+      const res = await fetch(`http://localhost:3000/recipes/${id}`, {
+        method: "DELETE"
+      });
+      if (res.ok) {
+        setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+      }
+    }
+  };
 
   return (
     <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -22,21 +44,15 @@ const MyRecipes = () => {
           />
           <div className="p-4 flex-1 flex flex-col">
             <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
-            <p className="text-sm mb-1">
-              <strong>Cuisine:</strong> {recipe.cuisineType}
-            </p>
-            <p className="text-sm mb-1">
-              <strong>Preparation Time:</strong> {recipe.prepTime} Minutes
-            </p>
-            <p className="text-sm mb-1">
-              <strong>Category:</strong>
-              {
-                recipe.categories.map((category,index)=><li key={index}>{category}</li>)
-              }
-            </p>
-            <p className="text-sm mb-1">
-              <strong>Likes:</strong> {recipe.likes}
-            </p>
+            <p className="text-sm mb-1"><strong>Cuisine:</strong> {recipe.cuisineType}</p>
+            <p className="text-sm mb-1"><strong>Prep Time:</strong> {recipe.prepTime} mins</p>
+            <p className="text-sm mb-1"><strong>Category:</strong></p>
+            <ul className="list-disc list-inside text-sm mb-1">
+              {recipe.categories.map((cat, index) => (
+                <li key={index}>{cat}</li>
+              ))}
+            </ul>
+            <p className="text-sm mb-1"><strong>Likes:</strong> {recipe.likes}</p>
             <div className="mt-2">
               <p className="text-sm font-semibold">Ingredients:</p>
               <ul className="list-disc list-inside text-sm text-gray-700">
@@ -51,7 +67,7 @@ const MyRecipes = () => {
             </div>
             <div className="mt-4 flex justify-between gap-2">
               <button
-                onClick={() => onUpdate(recipe.id)}
+                onClick={() => onUpdate(recipe._id)}
                 className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
               >
                 Update
@@ -67,8 +83,7 @@ const MyRecipes = () => {
         </div>
       ))}
     </div>
-
-  )
-}
+  );
+};
 
 export default MyRecipes;

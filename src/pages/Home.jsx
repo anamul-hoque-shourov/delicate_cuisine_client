@@ -1,14 +1,13 @@
-import React from 'react';
 import Banner from '../components/Banner';
 import RecipeGrid from '../components/RecipeGrid';
-import { useLoaderData } from 'react-router';
+import TopContributors from '../components/TopContributors';
 
 const Home = () => {
-    const recipes = useLoaderData();
     return (
         <div>
             <Banner />
-            <RecipeGrid recipes={recipes} />
+            <RecipeGrid />
+            <TopContributors />
         </div>
     );
 };
