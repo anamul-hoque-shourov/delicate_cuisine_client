@@ -8,6 +8,7 @@ import RecipeAdd from "../pages/RecipeAdd";
 import MyRecipes from "../pages/MyRecipes";
 import PrivateRoute from "./PrivateRoute";
 import RecipeDetails from "../pages/RecipeDetails";
+import Error from "../pages/Error";
 
 export const routes = createBrowserRouter([
     {
@@ -18,13 +19,13 @@ export const routes = createBrowserRouter([
                 index: true,
                 Component: Home,
                 loader: () => fetch("http://localhost:3000/recipes"),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
+                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             },
             {
                 path: "/recipes",
                 Component: Recipes,
                 loader: () => fetch("http://localhost:3000/recipes"),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
+                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             },
             {
                 path: "/login",
@@ -42,14 +43,18 @@ export const routes = createBrowserRouter([
                 path: "/myRecipes",
                 element: <PrivateRoute><MyRecipes /></PrivateRoute>,
                 loader: () => fetch("http://localhost:3000/recipes"),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
+                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             },
             {
                 path: "/recipes/:id",
                 element: <PrivateRoute><RecipeDetails /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:3000/recipes/${params.id}`),
-                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
+                hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>,
             }
         ]
+    },
+    {
+        path: "*",
+        Component: Error,
     }
 ]);

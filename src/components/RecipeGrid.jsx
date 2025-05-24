@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const RecipeGrid = ({ recipes }) => {
 
@@ -25,12 +26,21 @@ const RecipeGrid = ({ recipes }) => {
                             <h3 className="text-lg font-semibold">{recipe.title}</h3>
                             <p className="text-sm text-gray-500">{recipe.cuisineType}</p>
                             <p className="text-sm mt-1">{recipe.likes} likes</p>
-                            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                                View Details
-                            </button>
+                            <Link to={`/recipes/${recipe._id}`}>
+                                <button className="mt-3 w-full bg-orange-500 text-white py-1 rounded-md hover:bg-orange-600 transition">
+                                    See Details
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 ))}
+            </div>
+            <div className='flex justify-center'>
+                <Link className="mx-auto" to="/recipes">
+                    <button className="mx-auto mt-3 bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600 transition">
+                        See Details
+                    </button>
+                </Link>
             </div>
         </div>
     );

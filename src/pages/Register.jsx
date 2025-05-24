@@ -3,7 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { FaGoogle } from 'react-icons/fa';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -44,12 +44,11 @@ const Register = () => {
                     .then(() => {
                         toast.success("Account created successfully");
                         toast.success("Profile updated successfully");
-                        navigate("/login");
+                        navigate("/");
                     })
                     .catch(() => {
                         toast.error("Profile update failed");
                     });
-
             })
             .catch(() => {
                 toast.error("Account creation failed");
@@ -68,11 +67,9 @@ const Register = () => {
     };
 
     return (
-        <div className="p-5 card bg-base-100 w-full max-w-sm shrink-0 border border-gray-200 shadow mx-auto text-orange-500">
-            <h1 className="text-3xl font-bold text-center">Register Account</h1>
-
-            <form onSubmit={registerWithEmailAndPassword} className="fieldset mt-4 space-y-4">
-
+        <div className="p-4">
+            <form onSubmit={registerWithEmailAndPassword} className="max-w-sm space-y-2 p-4 card w-full border border-gray-200 shadow mx-auto">
+                <h1 className="text-3xl font-bold text-center">Register Account</h1>
                 <div>
                     <label className="text-base font-semibold">Name</label>
                     <input
@@ -140,6 +137,7 @@ const Register = () => {
                     <FaGoogle size={20} />
                     Register with Google
                 </button>
+                <p className='text-base'>Already have an account? Please <Link className='underline text-orange-500' to="/login">login</Link></p>
             </form>
         </div>
     );

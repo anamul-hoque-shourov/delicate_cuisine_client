@@ -3,8 +3,10 @@ import { FaGoogle } from 'react-icons/fa';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { Link, useNavigate } from 'react-router';
 
 const Login = () => {
+    const navigate = useNavigate();
     const { signInUser, googleLogin } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -28,6 +30,7 @@ const Login = () => {
             .then(() => {
                 form.reset();
                 toast.success("Logged in successfully");
+                navigate("/");
             })
             .catch(() => {
                 toast.error("Login failed");
@@ -38,6 +41,7 @@ const Login = () => {
         googleLogin()
             .then(() => {
                 toast.success("Logged in successfully");
+                navigate("/");
             })
             .catch(() => {
                 toast.error("Login failed");
@@ -45,11 +49,9 @@ const Login = () => {
     };
 
     return (
-        <div className="p-5 card bg-base-100 w-full max-w-sm shrink-0 border border-gray-200 shadow mx-auto">
-            <h1 className="text-3xl font-bold text-center">Login Account</h1>
-
-            <form onSubmit={loginWithEmailAndPassword} className="fieldset mt-4 space-y-4">
-
+        <div className="p-4">
+            <form onSubmit={loginWithEmailAndPassword} className="max-w-sm space-y-2 p-4 card w-full border border-gray-200 shadow mx-auto">
+                <h1 className="text-3xl font-bold text-center">Login Account</h1>
                 <div>
                     <label className="text-base font-semibold">Email</label>
                     <input
@@ -83,7 +85,7 @@ const Login = () => {
                     Login
                 </button>
 
-                <div className="flex items-center w-full mt-2">
+                <div className="flex items-center w-full">
                     <hr className="w-full" />
                     <p className="px-3 font-semibold text-base">OR</p>
                     <hr className="w-full" />
@@ -97,6 +99,7 @@ const Login = () => {
                     <FaGoogle size={20} />
                     Login with Google
                 </button>
+                <p className='text-base'>Don't have an account? Please <Link className='underline text-orange-500' to="/register">register</Link></p>
             </form>
         </div>
     );

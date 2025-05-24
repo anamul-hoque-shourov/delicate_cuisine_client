@@ -26,10 +26,13 @@ const MyRecipes = () => {
               <strong>Cuisine:</strong> {recipe.cuisineType}
             </p>
             <p className="text-sm mb-1">
-              <strong>Preparation Time:</strong> {recipe.prepTime}
+              <strong>Preparation Time:</strong> {recipe.prepTime} Minutes
             </p>
             <p className="text-sm mb-1">
-              <strong>Category:</strong> {recipe.category}
+              <strong>Category:</strong>
+              {
+                recipe.categories.map((category,index)=><li key={index}>{category}</li>)
+              }
             </p>
             <p className="text-sm mb-1">
               <strong>Likes:</strong> {recipe.likes}
@@ -37,9 +40,9 @@ const MyRecipes = () => {
             <div className="mt-2">
               <p className="text-sm font-semibold">Ingredients:</p>
               <ul className="list-disc list-inside text-sm text-gray-700">
-                {/* {recipe.ingredients.map((ingredient, index) => (
+                {recipe.ingredients.map((ingredient, index) => (
                   <li key={index}>{ingredient}</li>
-                ))} */}
+                ))}
               </ul>
             </div>
             <div className="mt-2">
@@ -54,7 +57,7 @@ const MyRecipes = () => {
                 Update
               </button>
               <button
-                onClick={() => onDelete(recipe.id)}
+                onClick={() => onDelete(recipe._id)}
                 className="px-4 py-2 bg-red-500 text-white rounded-xl hover:bg-red-600"
               >
                 Delete

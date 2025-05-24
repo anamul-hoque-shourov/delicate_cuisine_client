@@ -19,7 +19,7 @@ const RecipeAdd = () => {
         newRecipe.ownerName = user.displayName;
         newRecipe.ownerEmail = user.email;
         newRecipe.ownerPhoto = user.photoURL;
-        newRecipe.date= getFormattedBDTime()
+        newRecipe.date = getFormattedBDTime()
 
         console.log(newRecipe);
 
