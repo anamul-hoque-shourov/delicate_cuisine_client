@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLoaderData } from 'react-router';
+import { AuthContext } from '../contexts/AuthContext';
 
 const RecipeDetails = () => {
-    const { image, title, ingredients, instructions, prepTime, categories, cuisineType, ownerName, ownerPhoto, likes, date } = useLoaderData();
+    const { user } = useContext(AuthContext)
+    const { image, title, ingredients, instructions, prepTime, categories, cuisineType, ownerEmail, ownerName, ownerPhoto, likes, date } = useLoaderData();
 
     return (
         <div className="p-4">
             <div className="max-w-4xl bg-base-100 shadow mx-auto p-4 border border-gray-200 rounded-lg">
                 <img src={image} alt={title} className="w-full h-64 object-cover rounded-lg mb-5" />
 
-                <div className="flex justify-end items-center gap-2 mb-2">
-                    <div>
-                        <h2 className="font-semibold">Recipe by: {ownerName}</h2>
-                        <p className="text-xs font-semibold text-gray-500">Recipe added on: {date}</p>
+                <div className="flex justify-between items-start gap-2 mb-2">
+                    <p>{likes} people interested in this recipe</p>
+                    <div className="flex items-center gap-2">
+                        <div>
+                            <h2 className="font-semibold">Recipe by: {ownerName}</h2>
+                            <p className="text-xs font-semibold text-gray-500">Recipe added on: {date}</p>
+                        </div>
+                        <img alt={ownerName} src={ownerPhoto} className="w-8 h-8 rounded-full object-cover" />
                     </div>
-                    <img alt={ownerName} src={ownerPhoto} className="w-8 h-8 rounded-full object-cover" />
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-6">
@@ -45,15 +50,17 @@ const RecipeDetails = () => {
                     <p>{instructions}</p>
                 </div>
 
-                <div className="mt-6 flex items-center gap-4">
-                    <button
-                        // onClick={handleLike}
-                        className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md"
-                    >
-                        Like ❤️
-                    </button>
-                    <span>{likes} Likes</span>
-                </div>
+                {
+                    user.email !== ownerEmail &&
+                    <div className="mt-6 flex items-center gap-4">
+                        <button
+                            // onClick={handleLike}
+                            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md"
+                        >
+                            Like
+                        </button>
+                    </div>
+                }
             </div>
         </div>
 
