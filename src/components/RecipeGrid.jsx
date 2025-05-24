@@ -6,7 +6,7 @@ const RecipeGrid = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/popular-recipes")
+        fetch("https://recipe-server-black.vercel.app/popular-recipes")
             .then(res => res.json())
             .then((data) => {
                 setRecipes(data);
@@ -19,8 +19,8 @@ const RecipeGrid = () => {
     }
 
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-4 text-center">Top Recipes</h2>
+        <div className="p-4 mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-500 mb-5">Top Recipes</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {recipes.map((recipe) => (
                     <div

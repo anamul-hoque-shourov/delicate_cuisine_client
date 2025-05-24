@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 
 const RecipeAdd = () => {
+    const navigate=useNavigate();
     const { user } = useContext(AuthContext);
 
     const handleAddRecipe = (e) => {
@@ -23,7 +25,7 @@ const RecipeAdd = () => {
 
         console.log(newRecipe);
 
-        fetch("http://localhost:3000/recipes", {
+        fetch("https://recipe-server-black.vercel.app/recipes", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -34,7 +36,7 @@ const RecipeAdd = () => {
             .then(result => {
                 if (result.insertedId) {
                     toast.success("Recipe added successfully");
-                    form.reset();
+                    navigate("/myRecipes");
                 };
             })
     };

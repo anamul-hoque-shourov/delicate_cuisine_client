@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import Swal from 'sweetalert2';
 
 const MyRecipes = () => {
   const { user } = useContext(AuthContext);
@@ -8,7 +9,7 @@ const MyRecipes = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/recipes/user?email=${user.email}`)
+      fetch(`https://recipe-server-black.vercel.app/recipes/user?email=${user.email}`)
         .then(res => res.json())
         .then((data) => {
           setRecipes(data);
@@ -22,17 +23,28 @@ const MyRecipes = () => {
     console.log("Update recipe", id);
   };
 
-  const onDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this recipe?");
-    if (confirm) {
-      const res = await fetch(`http://localhost:3000/recipes/${id}`, {
-        method: "DELETE"
-      });
-      if (res.ok) {
-        setRecipes(prev => prev.filter(recipe => recipe._id !== id));
+  const onDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This recipe will be permanently deleted!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`, {
+          method: "DELETE"
+        })
+          .then(() => {
+            setRecipes(prev => prev.filter(recipe => recipe._id.toString() !== id.toString()));
+            Swal.fire('Deleted!', 'Your recipe has been deleted.', 'success');
+          });
       }
-    }
+    });
   };
+
 
   if (loading) {
     return <div className="text-center mt-10"><span className="loading loading-bars loading-xl"></span></div>;

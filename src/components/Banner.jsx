@@ -23,7 +23,7 @@ const BannerSlider = () => {
     }
 
     return (
-        <div className="w-full h-[400px] mx-auto">
+        <div className="w-full h-[400px] mx-auto mb-10">
             <Swiper
                 spaceBetween={30}
                 slidesPerView={1}

@@ -4,14 +4,14 @@ const TopContributors = () => {
     const [contributors, setContributors] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/top-contributors")
+        fetch("https://recipe-server-black.vercel.app/top-contributors")
             .then(res => res.json())
             .then(data => setContributors(data));
     }, []);
 
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold mb-6 text-center">Top Contributors</h2>
+        <div className="p-4 mb-5">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-500">Top Contributors</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
                 {contributors.map((user, index) => (
                     <div

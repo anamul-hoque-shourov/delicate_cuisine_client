@@ -1,6 +1,7 @@
 import Banner from '../components/Banner';
 import RecipeGrid from '../components/RecipeGrid';
 import TopContributors from '../components/TopContributors';
+import UpcomingFoodFest from '../components/UpcomingFoodFest';
 
 const Home = () => {
     return (
@@ -8,6 +9,7 @@ const Home = () => {
             <Banner />
             <RecipeGrid />
             <TopContributors />
+            <UpcomingFoodFest />
         </div>
     );
 };

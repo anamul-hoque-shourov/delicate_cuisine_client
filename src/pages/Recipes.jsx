@@ -6,7 +6,7 @@ const Recipes = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3000/recipes")
+        fetch("https://recipe-server-black.vercel.app/recipes")
             .then((res) => res.json())
             .then((data) => {
                 setRecipes(data);

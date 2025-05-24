@@ -12,7 +12,7 @@ const RecipeDetails = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/recipes/${id}`)
+        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`)
             .then(res => res.json())
             .then(data => {
                 setRecipe(data);
@@ -24,7 +24,7 @@ const RecipeDetails = () => {
     const handleLike = () => {
         const newLikes = likeCount + 1;
 
-        fetch(`http://localhost:3000/recipes/${id}`, {
+        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
