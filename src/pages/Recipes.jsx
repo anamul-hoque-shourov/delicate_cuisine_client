@@ -37,9 +37,9 @@ const Recipes = () => {
 
     return (
         <div className="p-6">
-            <h2 className="text-3xl font-bold mb-6 text-center">All Recipes</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-orange-500">All Recipes</h2>
 
-            <div className="mb-6 text-center">
+            <div className="mb-6 text-center text-orange-500">
                 <label htmlFor="cuisine-filter" className="mr-2 text-lg font-medium">Filter by Cuisine:</label>
                 <select
                     id="cuisine-filter"
