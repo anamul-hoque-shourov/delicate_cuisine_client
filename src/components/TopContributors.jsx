@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { baseURL } from "../constants/constants";
 
 const TopContributors = () => {
     const [contributors, setContributors] = useState([]);
 
     useEffect(() => {
-        fetch("https://recipe-server-black.vercel.app/top-contributors")
+        fetch(`${baseURL}/top-contributors`)
             .then(res => res.json())
             .then(data => setContributors(data));
     }, []);

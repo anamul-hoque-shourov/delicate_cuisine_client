@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { baseURL } from '../constants/constants';
 
 const RecipeDetails = () => {
     const { id } = useParams();
@@ -12,7 +13,7 @@ const RecipeDetails = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`)
+        fetch(`${baseURL}/recipes/${id}`)
             .then(res => res.json())
             .then(data => {
                 setRecipe(data);
@@ -24,7 +25,7 @@ const RecipeDetails = () => {
     const handleLike = () => {
         const newLikes = likeCount + 1;
 
-        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`, {
+        fetch(`${baseURL}/recipes/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

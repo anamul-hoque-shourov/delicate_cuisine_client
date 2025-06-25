@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { baseURL } from '../constants/constants';
 
 const RecipeAdd = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const RecipeAdd = () => {
 
         console.log(newRecipe);
 
-        fetch("https://recipe-server-black.vercel.app/recipes", {
+        fetch(`${baseURL}/recipes`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

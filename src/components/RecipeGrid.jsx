@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { baseURL } from '../constants/constants';
 
 const RecipeGrid = () => {
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://recipe-server-black.vercel.app/popular-recipes")
+        fetch(`${baseURL}/popular-recipes`)
             .then(res => res.json())
             .then((data) => {
                 setRecipes(data);

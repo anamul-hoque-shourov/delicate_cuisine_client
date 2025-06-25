@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import { baseURL } from '../constants/constants';
 
 const Recipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -9,7 +10,7 @@ const Recipes = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://recipe-server-black.vercel.app/recipes")
+        fetch(`${baseURL}/recipes`)
             .then((res) => res.json())
             .then((data) => {
                 setRecipes(data);

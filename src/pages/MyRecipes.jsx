@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import Swal from 'sweetalert2';
+import { baseURL } from '../constants/constants';
 
 const MyRecipes = () => {
   const { user } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const MyRecipes = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`https://recipe-server-black.vercel.app/recipes/user?email=${user.email}`)
+      fetch(`${baseURL}/recipes/user?email=${user.email}`)
         .then(res => res.json())
         .then((data) => {
           setRecipes(data);
@@ -34,7 +35,7 @@ const MyRecipes = () => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`https://recipe-server-black.vercel.app/recipes/${id}`, {
+        fetch(`${baseURL}/recipes/${id}`, {
           method: "DELETE"
         })
           .then(() => {
